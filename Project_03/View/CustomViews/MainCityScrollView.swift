@@ -32,7 +32,7 @@ class MainCityScrollView: UIView, UICollectionViewDelegate, UICollectionViewData
         // Initialize scrollView
         scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.backgroundColor = .red // For debugging visibility
+        scrollView.backgroundColor = .blue // For debugging visibility
         addSubview(scrollView)
 
         // Initialize stackView
@@ -40,10 +40,31 @@ class MainCityScrollView: UIView, UICollectionViewDelegate, UICollectionViewData
         stackView.axis = .vertical
         stackView.spacing = 10
         stackView.alignment = .fill
-        stackView.distribution = .fill
+        stackView.distribution = .fillProportionally // Adjust as needed
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.backgroundColor = .cyan // For debugging visibility
+        stackView.backgroundColor = .white // For debugging visibility
         scrollView.addSubview(stackView)
+
+        // Add labels to stackView
+        let cityNameLabel = UILabel()
+        cityNameLabel.text = "City: \(forecastModel.location.first?.city ?? "")"
+        cityNameLabel.textColor = .black
+        stackView.addArrangedSubview(cityNameLabel)
+
+        let weatherLabel = UILabel()
+        weatherLabel.text = "Weather: \(forecastModel.currentweather.first?.condition ?? "")"
+        weatherLabel.textColor = .black
+        stackView.addArrangedSubview(weatherLabel)
+
+        let feelsLikeLabel = UILabel()
+        feelsLikeLabel.text = "Feels Like: \(forecastModel.currentweather.first?.feelsLike ?? 0)°C"
+        feelsLikeLabel.textColor = .black
+        stackView.addArrangedSubview(feelsLikeLabel)
+
+        let highLowLabel = UILabel()
+        highLowLabel.text = "High/Low: \(forecastModel.currentweather.first?.hightemperature ?? 0)°C/\(forecastModel.currentweather.first?.lowtemperature ?? 0)°C"
+        highLowLabel.textColor = .black
+        stackView.addArrangedSubview(highLowLabel)
 
         // UICollectionView Setup
         let layout = UICollectionViewFlowLayout()
@@ -64,7 +85,7 @@ class MainCityScrollView: UIView, UICollectionViewDelegate, UICollectionViewData
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(DailyWeatherCell.self, forCellReuseIdentifier: "DailyWeatherCell")
-        tableView.backgroundColor = .systemBlue // For debugging visibility
+        tableView.backgroundColor = .darkGray // For debugging visibility
         stackView.addArrangedSubview(tableView)
 
         // Apply Constraints
@@ -77,6 +98,7 @@ class MainCityScrollView: UIView, UICollectionViewDelegate, UICollectionViewData
             stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor), // Ensuring scroll view height adjusts based on content
             
             collectionView.heightAnchor.constraint(equalToConstant: 120),

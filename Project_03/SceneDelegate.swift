@@ -12,13 +12,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         
         // Instantiate the TabBarVC as the root view controller
-        let tabBarVC = TabBarVC()
-
-        // Wrap TabBarVC in a navigation controller
-        let navigationController = UINavigationController(rootViewController: tabBarVC)
-        
-        // Set the root view controller of the window
-        window.rootViewController = navigationController
+        window.rootViewController = TabBarVC()
         self.window = window
         self.window?.makeKeyAndVisible()
     }

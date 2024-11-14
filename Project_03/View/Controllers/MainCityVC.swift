@@ -12,7 +12,7 @@ class MainCityVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        print("MainCityVC loaded")
         view.backgroundColor = .blue
         setupUI()
     }
